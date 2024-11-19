@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageVersion Include="Mapster" Version="7.4.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
-    <PackageVersion Include="MediatR" Version="12.4.0" />
+    <PackageVersion Include="MediatR" Version="12.4.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
     <PackageVersion Include="Blazored.LocalStorage" Version="4.5.0" />

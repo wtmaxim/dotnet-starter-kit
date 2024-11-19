@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Scalar.AspNetCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -16,6 +17,7 @@ public static class Extensions
         ArgumentNullException.ThrowIfNull(services);
         services.AddEndpointsApiExplorer();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+        services.AddOpenApi();
         services
             .AddSwaggerGen(options =>
             {
@@ -58,6 +60,7 @@ public static class Extensions
         ArgumentNullException.ThrowIfNull(app);
         if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "docker")
         {
+            app.MapOpenApi();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
@@ -76,6 +79,9 @@ public static class Extensions
                     options.SwaggerEndpoint(endpoint.Url, endpoint.Name);
                 }
             });
+
+            app.MapScalarApiReference().AllowAnonymous();
+
         }
         return app;
     }
