@@ -3,6 +3,7 @@ using MediatR;
 
 namespace FSH.Starter.WebApi.Catalog.Application.Products.Create.v1;
 public sealed record CreateProductCommand(
-    [property: DefaultValue("Sample Product")] string? Name,
-    [property: DefaultValue(10)] decimal Price,
-    [property: DefaultValue("Descriptive Description")] string? Description = null) : IRequest<CreateProductResponse>;
+    string Name = "Sample Product",
+    decimal Price = 10,
+    string? Description = "Descriptive Description")
+    : IRequest<CreateProductResponse>;
