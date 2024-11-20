@@ -1,16 +1,12 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace FSH.Framework.Infrastructure.OpenApi;
@@ -71,7 +67,6 @@ public static class Extensions
     {
         ArgumentNullException.ThrowIfNull(services);
         services.AddEndpointsApiExplorer();
-        services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         services.AddOpenApi(options =>
         {
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
@@ -106,20 +101,12 @@ public static class Extensions
                     new UrlDescriptor
                     {
                         Name = "API v1",
-                        Url = "/openapi/v1.json" // Forcer l'utilisation de 7000
+                        Url = "/openapi/v1.json"
                     }
                 };
 
                 options.DocExpansion(DocExpansion.None);
                 options.DisplayRequestDuration();
-
-                foreach (var description in app.DescribeApiVersions())
-                {
-                    options.SwaggerEndpoint(
-                        $"/openapi/{description.GroupName}.json",
-                        description.GroupName.ToUpperInvariant());
-                }
-
             });
 
             app.MapScalarApiReference().AllowAnonymous();
